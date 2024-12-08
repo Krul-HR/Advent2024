@@ -36,17 +36,20 @@ def recursive_lambda(result, numbers, lam):
     # damn reference types
     first_loop = [elem for elem in numbers]
     second_loop = [elem for elem in numbers]
+    third_loop = [elem for elem in numbers]
 
     # lambda
     plus = lambda x, y: x + y
     multiply = lambda x, y: x * y
+    merge = lambda x, y: int(str(x) + str(y))
 
-    # recursion
     if recursive_lambda(result, first_loop, multiply):
-        # print("plus -> recursion multi", numbers)
         return True
-    if recursive_lambda(result, second_loop, plus):
-        # print("plus -> recursion plus", numbers)
+    elif recursive_lambda(result, second_loop, plus):
+        return True
+    # part 2
+    elif recursive_lambda(result, third_loop, merge):
+
         return True
     return False
 
@@ -59,20 +62,26 @@ def recursive_first(result, numbers):
             return True
         if result == numbers[0] + numbers[1]:
             return True
+        if result == int(str(numbers[0]) + str(numbers[1])):
+            return True
         return False
 
     # damn reference types
     first_loop = [elem for elem in numbers]
     second_loop = [elem for elem in numbers]
+    third_loop = [elem for elem in numbers]
 
     plus = lambda x, y: x + y
     multiply = lambda x, y: x * y
+    merge = lambda x, y: int(str(x) + str(y))
 
     if recursive_lambda(result, first_loop, multiply):
-        # print("x true")
         return True
-    if recursive_lambda(result, second_loop, plus):
-        # print("+ true")
+    elif recursive_lambda(result, second_loop, plus):
+        return True
+    # part 2
+    elif recursive_lambda(result, third_loop, merge):
+
         return True
 
     return False
@@ -88,7 +97,7 @@ def part1_recursive(content):
         if x:
             total += result
 
-    print("total part 1: ", total)
+    print("total: ", total)
 
 
 if __name__ == "__main__":
@@ -98,13 +107,4 @@ if __name__ == "__main__":
         r, numbers = line.rstrip().split(":")
         numbers = [int(n) for n in numbers.strip().split()]
         splitted.append((int(r), numbers))
-    print("Part 1: ", part1_recursive(splitted))
-
-    # content = load_file("advent7.txt")
-    # splitted = []
-    # for line in content:
-    #     splitted.append(list(line.rstrip()))
-    # start_time = datetime.now()
-    # print("Part 2: ", part2(splitted))
-    # end_time = datetime.now()
-    # print('Duration: {}'.format(end_time - start_time))
+    print("Part 2: ", part1_recursive(splitted))
